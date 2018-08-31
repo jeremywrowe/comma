@@ -27,8 +27,19 @@ module Comma
 
     private
 
+    def sanitize_result(result)
+      while result.start_with?("+", "-", "=", "@")
+        result.slice!(0)
+      end
+    end
+
     def convert_to_data_value(result)
-      result.nil? ? result : result.to_s
+      if result.nil?
+        result
+      else
+        sanitize_result(result.to_s)
+        result
+      end
     end
 
   end
